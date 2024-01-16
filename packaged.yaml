@@ -4,7 +4,7 @@ Resources:
   fristLambda:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/lambdaFunction1/index.handler
+      Handler: src/firstLambda/index.handler
       Runtime: nodejs14.x
       CodeUri: s3://lambdacicdtest/4da370812a19b94a0661b16ca356c5d5
     Metadata:
@@ -12,7 +12,7 @@ Resources:
   secondLambda:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/lambdaFunction2/index.handler
+      Handler: src/secondLambda/index.handler
       Runtime: nodejs14.x
       CodeUri: s3://lambdacicdtest/4da370812a19b94a0661b16ca356c5d5
     Metadata:
