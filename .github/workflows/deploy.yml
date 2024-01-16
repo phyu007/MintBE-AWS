@@ -10,7 +10,8 @@ env:
   SAM_TEMPLATE: template.yml
   TESTING_STACK_NAME: mint
   TESTING_ARTIFACTS_BUCKET: lambdacicdtest
-  AWS_DEFAULT_REGION: us-east-1  
+  TEST_REGION: us-east-1  
+  TEST_PIPELINE_EXECUTION_ROLE: arn:aws:iam::230106472278:user/lambdacicdtest
 
 jobs:
   deploy:
@@ -34,6 +35,11 @@ jobs:
         with:
           aws-access-key-id: ${{ env.PIPELINE_USER_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ env.PIPELINE_USER_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.TEST_REGION }}
+          role-to-assume: ${{ env.TEST_PIPELINE_EXECUTION_ROLE }}
+          role-session-name: test-packaging
+          role-duration-seconds: 3600
+          role-skip-session-tagging: true
 
       - name: Package and Deploy to AWS SAM
         run: |
