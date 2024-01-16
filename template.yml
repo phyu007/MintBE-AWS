@@ -1,15 +1,45 @@
-AWSTemplateFormatVersion: '2010-09-09'
-Transform: 'AWS::Serverless-2016-10-31'
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: "AWS::Serverless-2016-10-31"
 
 Resources:
-  fristLambda:
-    Type: 'AWS::Serverless::Function'
+  createMint:
+    Type: "AWS::Serverless::Function"
     Properties:
-      Handler: src/firstLambda/index.handler
-      Runtime: nodejs14.x
+      Handler: createMint.handler
+      Runtime: nodejs18.x
 
-  secondLambda:
-    Type: 'AWS::Serverless::Function'
+  getMint:
+    Type: "AWS::Serverless::Function"
     Properties:
-      Handler: src/secondLambda/index.handler
-      Runtime: nodejs14.x
+      Handler: getMint.handler
+      Runtime: nodejs18.x
+
+  apiGateway:
+    Type: "AWS::Serverless::Api"
+    Properties:
+      StageName: "TEST"
+      DefinitionBody:
+        swagger: "2.0"
+        info:
+          title: "MintBEAPIs"
+        paths:
+          /mints:
+            post:
+              x-amazon-apigateway-integration:
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${createMint.Arn}/invocations
+                passthroughBehavior: "when_no_match"
+                httpMethod: "POST"
+                type: "aws_proxy"
+              responses: {}
+              security: []
+            get:
+              x-amazon-apigateway-integration:
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${getMint.Arn}/invocations
+                passthroughBehavior: "when_no_match"
+                httpMethod: "GET"
+                type: "aws_proxy"
+              responses: {}
+              security: []
+      EndpointConfiguration: REGIONAL # Use 'EDGE' if you want a global endpoint

@@ -1,19 +1,50 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Resources:
-  fristLambda:
+  createMint:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/firstLambda/index.handler
-      Runtime: nodejs14.x
-      CodeUri: s3://lambdacicdtest/4cfa785f594f9206fce51fbe4f602649
+      Handler: createMint.handler
+      Runtime: nodejs18.x
+      CodeUri: s3://lambdacicdtest/6a4a1f396b320b8950a90264af71ed97
     Metadata:
-      SamResourceId: fristLambda
-  secondLambda:
+      SamResourceId: createMint
+  getMint:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/secondLambda/index.handler
-      Runtime: nodejs14.x
-      CodeUri: s3://lambdacicdtest/4cfa785f594f9206fce51fbe4f602649
+      Handler: getMint.handler
+      Runtime: nodejs18.x
+      CodeUri: s3://lambdacicdtest/6a4a1f396b320b8950a90264af71ed97
     Metadata:
-      SamResourceId: secondLambda
+      SamResourceId: getMint
+  apiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: TEST
+      DefinitionBody:
+        swagger: '2.0'
+        info:
+          title: MintBEAPIs
+        paths:
+          /mints:
+            post:
+              x-amazon-apigateway-integration:
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${createMint.Arn}/invocations
+                passthroughBehavior: when_no_match
+                httpMethod: POST
+                type: aws_proxy
+              responses: {}
+              security: []
+            get:
+              x-amazon-apigateway-integration:
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${getMint.Arn}/invocations
+                passthroughBehavior: when_no_match
+                httpMethod: GET
+                type: aws_proxy
+              responses: {}
+              security: []
+      EndpointConfiguration: REGIONAL
+    Metadata:
+      SamResourceId: apiGateway
