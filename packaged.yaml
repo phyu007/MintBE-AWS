@@ -6,7 +6,7 @@ Resources:
     Properties:
       Handler: createMint.handler
       Runtime: nodejs18.x
-      CodeUri: s3://lambdacicdtest/6a4a1f396b320b8950a90264af71ed97
+      CodeUri: s3://lambdacicdtest/6e718a79ceab94c1c9e19fc3f7807e7a
     Metadata:
       SamResourceId: createMint
   getMint:
@@ -14,7 +14,7 @@ Resources:
     Properties:
       Handler: getMint.handler
       Runtime: nodejs18.x
-      CodeUri: s3://lambdacicdtest/6a4a1f396b320b8950a90264af71ed97
+      CodeUri: s3://lambdacicdtest/6e718a79ceab94c1c9e19fc3f7807e7a
     Metadata:
       SamResourceId: getMint
   apiGateway:

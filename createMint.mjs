@@ -18,6 +18,7 @@ export const handler = async (event, context) => {
   let statusCode = 200;
   const headers = {
     "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
   };
 
 
@@ -41,10 +42,8 @@ export const handler = async (event, context) => {
             },
           })
         );
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: 'Item mint successfully' }),
-    }
+  
+  body = "Item minted successfully!"
     
   } catch (err) {
     statusCode = 400;
@@ -55,7 +54,7 @@ export const handler = async (event, context) => {
 
   return {
     statusCode,
-    body,
+    body: JSON.stringify(body),
     headers,
   };
 };

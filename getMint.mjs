@@ -49,10 +49,6 @@ export const handler = async (event, context) => {
     console.log('response', JSON.stringify(response))
     
     body = response.Items
-    return {
-      statusCode: 200,
-      body
-    }
     
   } catch (err) {
     statusCode = 400;
