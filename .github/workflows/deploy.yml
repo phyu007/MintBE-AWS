@@ -24,8 +24,8 @@ jobs:
 
       - name: Package and Deploy to AWS SAM
         run: |
-          sam package --template-file template.yml --s3-bucket your-s3-bucket-name --output-template-file packaged.yaml
-          sam deploy --template-file packaged.yaml --stack-name your-stack-name --capabilities CAPABILITY_IAM
+          sam package --template-file template.yml --s3-bucket lambdacicdtest --output-template-file packaged.yaml
+          sam deploy --template-file packaged.yaml --stack-name mint --capabilities CAPABILITY_IAM
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
