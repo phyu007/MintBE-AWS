@@ -5,11 +5,11 @@ Resources:
   fristLambda:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: src/lambdaFunction1/index.handler
+      Handler: src/firstLambda/index.handler
       Runtime: nodejs14.x
 
   secondLambda:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: src/lambdaFunction2/index.handler
+      Handler: src/secondLambda/index.handler
       Runtime: nodejs14.x
