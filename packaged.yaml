@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  fristLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/lambdaFunction1/index.handler
+      Runtime: nodejs14.x
+      CodeUri: s3://lambdacicdtest/4da370812a19b94a0661b16ca356c5d5
+    Metadata:
+      SamResourceId: fristLambda
+  secondLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/lambdaFunction2/index.handler
+      Runtime: nodejs14.x
+      CodeUri: s3://lambdacicdtest/4da370812a19b94a0661b16ca356c5d5
+    Metadata:
+      SamResourceId: secondLambda
