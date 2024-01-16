@@ -17,9 +17,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 14
-
-      - name: Install SAM CLI
-        run: npm install -g aws-sam-cli
+      - uses: aws-actions/setup-sam@v1
+        with:
+          aws-cli-version: 2.1.29
+          sam-cli-version: 1.21.1
 
       - name: Package and Deploy to AWS SAM
         run: |
