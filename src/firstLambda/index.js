@@ -8,7 +8,7 @@ exports.handler = async (event, context) => {
   
       return {
         statusCode: 200,
-        body: JSON.stringify({ message: 'Lambda function 1 executed successfully!' }),
+        body: JSON.stringify({ message: 'Lambda function 1 changes executed successfully!' }),
       };
     } catch (error) {
       console.error('Error:', error);
