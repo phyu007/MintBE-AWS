@@ -1,0 +1,74 @@
+openapi: "3.0.1"
+info:
+  title: "MintBEAPIs"
+  version: "2024-01-16T08:59:24Z"
+servers:
+  - url: "https://lpnaw7fhm6.execute-api.us-east-1.amazonaws.com/{basePath}"
+    variables:
+      basePath:
+        default: "TEST"
+paths:
+  /mints:
+    get:
+      parameters:
+        - name: uuid
+          in: query
+          description: "UUID of the mint to retrieve details for. (Optional)"
+          required: false
+          schema:
+            type: string
+      security:
+        - Authorizer: []
+      summary: "Get All Mints"
+      responses:
+        "200":
+          description: "Successful response for getting all mints."
+          content:
+            application/json:
+              example:
+                - name: "firstMint"
+                  description: "myfirstMint"
+                  image: "base64"
+                - name: "secondMint"
+                  description: "mysecondMint"
+                  image: "base64"
+    post:
+      security:
+        - Authorizer: []
+      summary: "Create a Mint"
+      requestBody:
+        description: "Mint data to be created"
+        required: true
+        content:
+          application/json:
+            example:
+              name: "newMint"
+              description: "myNewMint"
+              image: "base64"
+      responses:
+        "201":
+          description: "Mint created successfully."
+        "400":
+          description: "Bad Request. Invalid input data."
+    options:
+      summary: "Options request for CORS"
+      responses:
+        "200":
+          description: "CORS preflight request successful."
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: "string"
+            Access-Control-Allow-Methods:
+              schema:
+                type: "string"
+            Access-Control-Allow-Headers:
+              schema:
+                type: "string"
+components:
+  securitySchemes:
+    Authorizer:
+      type: "apiKey"
+      name: "Authorization"
+      in: "header"
+      x-amazon-apigateway-authtype: "cognito_user_pools"
